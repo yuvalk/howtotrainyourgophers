@@ -1,4 +1,4 @@
-Golang for C developers
+How to train your gophers
 
 Federico Paolinelli
 List
@@ -7,7 +7,7 @@ fedepaol@gmail.com
 
 * About me
 
-- Lead developer at List
+- Tech Lead at List
 - C on daily basis
 - Going on with Golang
 
@@ -52,13 +52,18 @@ Things I tinker with in my spare time:
 * Basic data types
 
 We do have integers, floats, booleans:
-.code basictypes.go
+
+	var n int64 = 23
+	var n1 int = 28
+	var p float64 = 9.75
+	var r bool = true
 
 Go provides a higher level _string_ type:
 
 .code strings.go
 
-*Arrays*in*Go:* 
+* Arrays 
+
 .code arrays.go
 
 - Fixed lenght
@@ -70,11 +75,11 @@ Go provides a higher level _string_ type:
 - Dynamically sized
 - Automatically resized by append
 
+: append crea (o puo` creare) una nuova slice
+
 * Maps 
 
 .code maps.go
-
-- no native equivalent in C
 
 * Functions
 
@@ -88,9 +93,9 @@ Go provides a higher level _string_ type:
 
 * Memory management
 
-* Memory management in Go
+* Memory management
 
-There are pointers too, which is good: the dev is in control of what is passed by value and what by reference 
+There are pointers , which is good: the dev is in control of what is passed by value and what by reference 
 
 .code pointers.go
 
@@ -99,40 +104,19 @@ There are pointers too, which is good: the dev is in control of what is passed b
 : differenza con altri linguaggi dove tutto e` per reference 
 : no boxing
 : using escape analysis, the compiler chooses what to leave on the stack and what on the heap
-
-* But I really really miss pointer arithmetic!
-
-* Unsafe package
-
-The package name is self explanatory.
-It provides Pointers.
-
-- A pointer value of any type can be converted to a Pointer.
-- A Pointer can be converted to a pointer value of any type.
-
-	func Float64bits(f float64) uint64 {
-		return *(*uint64)(unsafe.Pointer(&f))
-	}
-
-- Pointer arithmetic 
-
-	f := unsafe.Pointer(uintptr(unsafe.Pointer(&s)) + unsafe.Offsetof(s.f))
-
+: menzionare unsafe package
 
 * Nice things about GO
 
-* It's safer
+* It's safe
 
 Prevents side effects related to distractions 
 
 - assignement between different types requires explicit conversion
-.code casting.c
 - variables are initialized with zero values
-.code initialization.c
 - no pointer arithmetic
-.code pointerarit.c
 
-* Doing more with (a bit) less
+* Does more with (a bit) less
 
 - No ; nor () around ifs
 - Type inference, short variable declaration
@@ -156,8 +140,7 @@ Compiling is *really* fast
 * Let's talk about OOP
 
 * User defined data structures
-C structs:
-.code structs.c
+
 Go Structs
 .code struct.go
 
@@ -181,10 +164,20 @@ Go Structs
 
 .code interface.go
 
+- Can be composed
+
+	type ReadWriter interface {
+		Reader
+		Writer
+	}
+
+* Interfaces (2)
+
 - Can be checked
 
 .code interfaceassertion.go
 : you can retro assign an interface to any object
+: Interfaces can be used as a placeholder to use different concrete types 
 
 * Encapsulation
 
@@ -203,93 +196,6 @@ Every file belongs to a package
 
 	var Exported int
 	var notExported string
-
-	
-	
-* The worst nightmare of every programmer
-
-
-* 
-
-Knock knock. 
-Race condition. 
-Who's there?
-
-: A bug in multithreading can result in memory corruption with unexpected and unpredictable results. Moreover, it could happen in very rare situations difficult to reproduce with tests.
-: What's more, a wrong usage of the locking primitives can result in a deadlock of two or more threads.
-: *Getting*threading*right*is*difficult*
-
-* pthread.h
-
-Provide primitives to create and synchronize threads together.
-
-- Mutexes
-- Condition variables
-- Semaphores
-
-_Multithreading_is_today's_goto_:_
-- hard to read / understand
-- difficult to debug
-
-What we need is a better solution for concurrency, easier to understand and to handle
-
-* Enters goroutine
-
-Goroutines are lightweight threads managed by the Go runtime.
-
-	go myFunction()
-
-*Why*lighter?*
-
-- smaller (altough variable) stack
-- many goroutines can be share a single os thread
-- scheduling not invoked periodically but as a consequence of synchronization
-
-
-_It_is_practical_to_create_hundreds_of_thousands_of_goroutines_in_the_same_address_space_
-
-
-* Why are they different?
-
-* Channels
-
-A channel is a communication mechanism between two goroutines
-
-	ch := make(chan int)
-
-We can send values to a channel
-
-	ch <- 23
-
-or receive from a channel
-
-	res := <- ch
-
-or just check if send has happened
-
-	<- ch
-
-Channels can be buffered or unbuffered.
-Sending on a full channel blocks the sender, receiving from an empty channel blocks the receiver.
-
-: channels are VALUES
-: origins in csp communicating sequential processes
-
-* Goroutines are indipendent executing actors communicating via channels
-.image concurrency.jpeg
-
-Definetely easier to reason about
-
-* An example
-
-.play goroutine.go
-
-* Where are my mutexes?
-
-* Go provides synchronization primitives
-- Mutexes
-- RW Locks
-- sync.Once
 
 * Everything else
 
@@ -360,6 +266,114 @@ The go runtime is linked together with the executable. The absence of external d
 - native cpu and memory profiling
 - cross compiles
 - awesome linters
+
+	
+	
+* How to train your gophers
+
+* 
+
+Knock knock. 
+Race condition. 
+Who's there?
+
+: A bug in multithreading can result in memory corruption with unexpected and unpredictable results. Moreover, it could happen in very rare situations difficult to reproduce with tests.
+: What's more, a wrong usage of the locking primitives can result in a deadlock of two or more threads.
+: *Getting*threading*right*is*difficult*
+
+* Goroutines
+
+Goroutines are lightweight threads managed by the Go runtime.
+
+	go myFunction()
+
+*Why*lighter?*
+
+- smaller (altough variable) stack
+- many goroutines can be share a single os thread
+- scheduling not invoked periodically but as a consequence of synchronization
+
+
+_It_is_practical_to_create_hundreds_of_thousands_of_goroutines_in_the_same_address_space_
+
+
+* Why are they different?
+
+* Channels
+
+A channel is a communication mechanism between two goroutines
+
+	ch := make(chan int)
+
+We can send values to a channel
+
+	ch <- 23
+
+or receive from a channel
+
+	res := <- ch
+
+or just check if send has happened
+
+	<- ch
+
+* Buffered vs unbuffered
+
+Channels can be buffered or unbuffered.
+
+	buffered := make(chan int, 5)
+
+	unbuffered := make(chan int)
+
+Sending on a full channel blocks the sender, receiving from an empty channel blocks the receiver.
+
+: channels are VALUES
+: origins in csp communicating sequential processes
+
+* Goroutines are indipendent executing actors communicating via channels
+.image concurrency.jpeg
+
+Definetely easier to reason about
+
+* Select
+
+	select {
+	case <-ch1:
+		// ...
+	case x := <-ch2:
+		// ...use x...
+	case ch3 <- y:
+		// ...
+	default:
+		// ...
+	}
+
+A way to multiplex several channels. Waits until a communication for one of its cases is ready.
+
+* Some examples
+
+* A simple goroutine 
+
+.play goroutine.go /START OMIT/,/END OMIT/
+
+* With synchronization
+
+.play syncgoroutine.go /START OMIT/,/END OMIT/
+
+* Channels are the interfaces between a goroutine and the external world
+
+.play channelinterface.go /START OMIT/,/END OMIT/
+
+* Channels are value that can be passed around
+
+.play generator.go /START OMIT/,/END OMIT/
+
+* Where are my mutexes?
+
+* Go provides synchronization primitives
+- Mutexes
+- RW Locks
+- sync.Once
 
 * Go focuses on
 
