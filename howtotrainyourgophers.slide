@@ -354,19 +354,71 @@ A way to multiplex several channels. Waits until a communication for one of its 
 
 * A simple goroutine 
 
+.image simple.png 400 _
+
+* A simple goroutine 
+
 .play goroutine.go /START OMIT/,/END OMIT/
 
 * With synchronization
 
+.image simplewithsync.png 400 _
+
+* With synchronization 
+
 .play syncgoroutine.go /START OMIT/,/END OMIT/
 
-* Channels are the interfaces between a goroutine and the external world
-
-.play channelinterface.go /START OMIT/,/END OMIT/
-
-* Channels are value that can be passed around
+* Channels are values that can be passed around
 
 .play generator.go /START OMIT/,/END OMIT/
+
+* Select multiplexes multiple channels
+
+.image select.png 400 _
+
+* Select multiplexes multiple channels
+
+.play selectgoroutine.go /START OMIT/,/END OMIT/
+
+* Closing a channel generates a message
+
+.image range.png 400 _
+
+* Closing a channel generates a message
+
+.play closechannel.go /START OMIT/,/END OMIT/
+
+* Closing a channel generates a message (short version)
+
+.play closechannelwithrange.go /START OMIT/,/END OMIT/
+
+* Some patterns
+
+* Block with timeout
+
+.image selecttimeout.png 400 _
+
+* Block with timeout
+
+.play selecttimeout.go /START OMIT/,/END OMIT/
+
+: funziona perche' i canali non piu` raggiungibili vengono portati via dal gc
+
+* Fan in
+
+.image fanin.png 400 _
+
+* Fan in
+
+.play fanin.go /START OMIT/,/END OMIT/
+
+* Channels can be passed around
+
+.image channelpassed.png 400 _
+
+* Channels can be passed around
+
+.play channelspassed.go /START OMIT/,/END OMIT/
 
 * Where are my mutexes?
 
