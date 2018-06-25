@@ -1,0 +1,18 @@
+
+Perche` sforzarsi di trovare un modello concorrente?
+Il mondo e' intrinsecamente fatto di event iche succedono in contemporanea e le nostre applicazioni si devono modellare di conseguenza
+
+Volevo trovare un esempio che rendesse chiaro come fare e l'altra sera mi sono trovato in un posto dove ' evidente che succedono cose in parallelo. La pizzeria.
+Ordini telfeonici, fattorini pronti, clienti che vogliono pagare. Non so se vi siete mai trovati in pizzeria la sera della partiat. 
+
+Pizza 
+
+Passing channels: Command pattern con request reply
+Fan in
+Fan out
+Select
+Non blocking channel
+Channel with timeout
+Channel closure
+
+Concludere con handle with care. Esempio speedup se usa meno goroutines
