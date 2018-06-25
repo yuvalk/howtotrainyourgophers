@@ -415,7 +415,7 @@ Definetely easier to reason about
 
 A way to multiplex several channels. Waits until a communication for one of its cases is ready.
 
-* Some examples
+* Let's put it into the real world
 
 * A simple goroutine 
 
@@ -432,10 +432,6 @@ A way to multiplex several channels. Waits until a communication for one of its 
 * With synchronization 
 
 .play syncgoroutine.go /START OMIT/,/END OMIT/
-
-* Channels are values that can be passed around
-
-.play generator.go /START OMIT/,/END OMIT/
 
 * Select multiplexes multiple channels
 
@@ -533,4 +529,3 @@ Interesting read :
 - Mailing list
 .link https://groups.google.com/forum/#!forum/golang-nuts
 
-* We are hiring!
