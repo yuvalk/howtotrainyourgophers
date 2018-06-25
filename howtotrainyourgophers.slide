@@ -419,7 +419,7 @@ A way to multiplex several channels. Waits until a communication for one of its 
 
 * A simple goroutine 
 
-.image simple.png 400 _
+.image simple.png 300 _
 
 * A simple goroutine 
 
@@ -427,7 +427,7 @@ A way to multiplex several channels. Waits until a communication for one of its 
 
 * With synchronization
 
-.image simplewithsync.png 400 _
+.image simplewithsync.png 300 _
 
 * With synchronization 
 
@@ -439,7 +439,7 @@ A way to multiplex several channels. Waits until a communication for one of its 
 
 * Select multiplexes multiple channels
 
-.image select.png 400 _
+.image select.png 350 _
 
 * Select multiplexes multiple channels
 
@@ -493,6 +493,8 @@ A way to multiplex several channels. Waits until a communication for one of its 
 
 .play loadbalancer.go /START OMIT/,/END OMIT/
 
+* .. and more 
+
 * What can we say about goroutines
 
 - Goroutines are actors that perform their tasks sequentially
@@ -507,7 +509,7 @@ A way to multiplex several channels. Waits until a communication for one of its 
 - avoid the temptation to summon your gopher army
 - context switch has an hidden cost
 - use the profilers
-- use the synchronization primitves and the atomic package
+- use the synchronization primitives and the atomic package
 
 Interesting read :
 
