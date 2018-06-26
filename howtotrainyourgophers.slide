@@ -162,6 +162,19 @@ Prevents side effects related to distractions
 	for index , _ := range(mySlice) { /* ... */ }
 
 - defer() to call finalizing operations inside a function
+
+	func f() {
+		mutex := &sync.Mutex{}
+		defer mutex.Unlock()
+
+		...
+		if cond {
+			return
+		}
+		...
+		return
+	}
+
 - no break in switch, switch cases can be conditions
 
 * Productivity boost!

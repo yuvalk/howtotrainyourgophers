@@ -12,7 +12,7 @@ func main() {
 	pizzaReady := make(chan pizza, 1) // Note the buffered channel
 	go func() {
 		time.Sleep(10 * time.Second)
-		res <- true
+		pizzaReady <- true
 	}()
 
 	timeout := time.After(3 * time.Second)
