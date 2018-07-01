@@ -4,6 +4,7 @@ Federico Paolinelli
 List
 @fedepaol
 fedepaol@gmail.com
+federico@list-group.com
 
 * About me
 
@@ -18,6 +19,13 @@ Things I tinker with in my spare time:
 
 : Sistemi distribuiti. Cluster di microservices che parlano fra di loro e con entita' esterne
 : Questo talk e` parte del processo in cui sto imparando Go
+
+* 
+
+.image Go-Logo_Black.png 400 _
+
+.caption from [[https://blog.golang.org/go-brand][The go branding strategy]]
+
 
 * The recipe for Go
 
@@ -76,7 +84,7 @@ Go provides a higher level _string_ type:
 
 * Slices
 
-	var a s[]int = []int{1,2,3}
+	var s[]int = []int{1,2,3}
 	s1 := a[1:3] // 2, 3
 	s2 := make([]int, 3) // {0, 0, 0}
 	var s3
@@ -541,4 +549,6 @@ Interesting read :
 
 - Mailing list
 .link https://groups.google.com/forum/#!forum/golang-nuts
+
+* We are hiring
 
