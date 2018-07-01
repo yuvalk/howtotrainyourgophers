@@ -26,6 +26,16 @@ Things I tinker with in my spare time:
 
 .caption from [[https://blog.golang.org/go-brand][The go branding strategy]]
 
+: Go e` al picco della salita. Sta diventando main stream ed e' il linguaggio preferito per sistemi.
+
+* Why go instead of a lower level language
+
+gVisor was written in Go in order to avoid security pitfalls that can plague kernels. With Go, there are strong types, built-in bounds checks, no uninitialized variables, no use-after-free, no stack overflow, and a built-in race detector. (The use of Go has its challenges too, and isn't free.)
+
+.caption from [[https://github.com/google/gvisor][google gvisor repository]]
+
+
+
 
 * The recipe for Go
 
@@ -125,8 +135,6 @@ Go provides a higher level _string_ type:
 
 * Memory management
 
-* Memory management
-
 There are pointers , which is good: the dev is in control of what is passed by value and what by reference 
 
 	func f() int* {
@@ -136,6 +144,12 @@ There are pointers , which is good: the dev is in control of what is passed by v
 
 - garbage collected
 - pointers are references to live objects: there is no way to mess up with the memory
+- the compilers helps us with methods on pointers
+
+	p := new(MyStruct)
+	p.stuff() // the same as (*p).stuff()
+
+
 : differenza con altri linguaggi dove tutto e` per reference 
 : no boxing
 : using escape analysis, the compiler chooses what to leave on the stack and what on the heap
@@ -150,6 +164,7 @@ Prevents side effects related to distractions
 - assignement between different types requires explicit conversion
 - variables are initialized with zero values
 - no pointer arithmetic
+- variables *must* be used
 
 * Does more with (a bit) less
 
@@ -167,7 +182,7 @@ Prevents side effects related to distractions
 
 - Range loops (in maps, slices and strings)
 
-	for index , _ := range(mySlice) { /* ... */ }
+	for _, val := range(mySlice) { /* ... */ }
 
 - defer() to call finalizing operations inside a function
 
@@ -243,6 +258,13 @@ Go Structs
 	var c Car{wheels : 4}
 	var d Driveable = c
 
+_If_it_walks_like_a_duck_and_quacks_as_a_duck,_it's_a_duck_
+
+: But the compiler tells you if you made a mistake
+: You can create interfaces that are satisfied by structs you don't own.
+
+* Interfaces (2)
+
 - Can be composed
 
 	type ReadWriter interface {
@@ -250,7 +272,6 @@ Go Structs
 		Writer
 	}
 
-* Interfaces (2)
 
 - Can be checked
 

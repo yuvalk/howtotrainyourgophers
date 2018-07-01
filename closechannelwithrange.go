@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-func numberGenerator() chan int {
+func pizzaGenerator() chan int {
 	res := make(chan int)
 	go func() {
 		for i := 0; i < 5; i++ {
@@ -20,9 +20,9 @@ func numberGenerator() chan int {
 // START OMIT
 
 func main() {
-	numberChan := numberGenerator()
-	for number := range numberChan {
-		fmt.Println(number)
+	pizzaChan := pizzaGenerator()
+	for pizza := range pizzaChan {
+		fmt.Println("Pizza ", pizza)
 	}
 	fmt.Println("Channel closed")
 }
