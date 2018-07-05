@@ -454,6 +454,14 @@ Definetely easier to reason about
 
 A way to multiplex several channels. Waits until a communication for one of its cases is ready.
 
+* Classic synchronization primitves
+
+- Mutexes
+- RW Locks
+- sync.Once
+- Atomic operations
+
+
 * Let's put this into the real world
 
 * A simple goroutine 
@@ -551,7 +559,7 @@ A way to multiplex several channels. Waits until a communication for one of its 
 
 - avoid the temptation to summon your gopher army
 - context switch has an hidden cost
-- use mutexes / rw locks have their place
+- mutexes / rw locks have their use cases
 - use the profilers
 - use the synchronization primitives and the atomic package
 
