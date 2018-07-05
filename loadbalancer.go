@@ -7,17 +7,17 @@ import (
 
 type order int
 
-func makePizza(orderChan chan order) {
+func pizzaMaker(orderChan chan order) {
 	for o := range orderChan {
 		time.Sleep(time.Second)
-		fmt.Printf("Pizza %d ready\n", o)
+		fmt.Printf("Pizza maker: %d ready\n", o)
 	}
 }
 
 func customer(id int) chan order {
 	res := make(chan order)
 	go func() {
-		fmt.Printf("ordered %d\n", id)
+		fmt.Printf("Customer %d : ordered \n", id)
 		res <- order(id)
 	}()
 	return res
@@ -30,8 +30,8 @@ func main() {
 	c2 := customer(2)
 	c3 := customer(3)
 
-	go makePizza(pizzaMakerChan) // two pizza makers
-	go makePizza(pizzaMakerChan)
+	go pizzaMaker(pizzaMakerChan) // two pizza makers
+	go pizzaMaker(pizzaMakerChan)
 
 	fmt.Println("Waiting for orders")
 	for {

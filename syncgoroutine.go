@@ -11,16 +11,17 @@ type pizza bool
 func main() {
 
 	c := make(chan pizza)
+	fmt.Println("Customer: Ordered pizza")
+
 	go func() {
 		time.Sleep(3 * time.Second)
-		fmt.Println("Pizza ready")
+		fmt.Println("Waiter: Pizza ready")
 		c <- true
 	}()
 
-	fmt.Println("Ordered pizza")
 	myPizza := <-c
 	if myPizza {
-		fmt.Println("Pizza received")
+		fmt.Println("Customer: pizza received")
 	}
 }
 

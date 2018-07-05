@@ -8,36 +8,27 @@ federico@list-group.com
 
 * About me
 
-- Tech Lead at List
-- C on daily basis
-- Going on with Golang
-
-Things I tinker with in my spare time:
-
-- Android
-- Python
+- Lead developer at List
+- Moving from C on daily basis to golang
+- Android in my spare time
 
 : Sistemi distribuiti. Cluster di microservices che parlano fra di loro e con entita' esterne
 : Questo talk e` parte del processo in cui sto imparando Go
 
-* 
+* Agenda
+
+- Why Go
+- Intro to the language
+- Gophers
+
+* Why Go
 
 .image Go-Logo_Black.png 400 _
 
 .caption from [[https://blog.golang.org/go-brand][The go branding strategy]]
 
 : Go e` al picco della salita. Sta diventando main stream ed e' il linguaggio preferito per sistemi.
-
-* Why go instead of a lower level language
-
-gVisor was written in Go in order to avoid security pitfalls that can plague kernels. With Go, there are strong types, built-in bounds checks, no uninitialized variables, no use-after-free, no stack overflow, and a built-in race detector. (The use of Go has its challenges too, and isn't free.)
-
-.caption from [[https://github.com/google/gvisor][google gvisor repository]]
-
-
-
-
-* The recipe for Go
+: le cose piu` interessanti uscite nell'ultimo periodo sono fatte in go
 
 * The recipe for Go
 
@@ -52,18 +43,21 @@ gVisor was written in Go in order to avoid security pitfalls that can plague ker
 
 * Can a language be fast and fun to use?
 
-: memory leaks, direct access to memory
-: if you need a data structure, you need to reimplement it or rely on external libraries
-
 .image gograph.png 400 _
 
 * Go's elevator pitch:
 
-- fast (C-ish fast)
+- fast
 - good at networking and multiprocessing
 - scales well
 - easy to learn
 - comprehensible
+
+* Go vs lower level languages
+
+gVisor was written in Go in order to avoid security pitfalls that can plague kernels. With Go, there are strong types, built-in bounds checks, no uninitialized variables, no use-after-free, no stack overflow, and a built-in race detector. (The use of Go has its challenges too, and isn't free.)
+
+.caption from [[https://github.com/google/gvisor][google gvisor repository]]
 
 * Let's dive in
 
@@ -144,7 +138,7 @@ There are pointers , which is good: the dev is in control of what is passed by v
 
 - garbage collected
 - pointers are references to live objects: there is no way to mess up with the memory
-- the compilers helps us with methods on pointers
+- the compiler helps us with methods on pointers
 
 	p := new(MyStruct)
 	p.stuff() // the same as (*p).stuff()
@@ -223,6 +217,7 @@ Go Structs
 : no inheritance
 : no generics
 : enforce composition through embedding
+: linear structures
 
 * Methods
 
@@ -382,7 +377,9 @@ The go runtime is linked together with the executable. The absence of external d
 
 .image run.png
 	
-* How to train your gophers
+* Where are my gophers?!
+
+.image beergophers.png 400 _
 
 : A bug in multithreading can result in memory corruption with unexpected and unpredictable results. Moreover, it could happen in very rare situations difficult to reproduce with tests.
 : What's more, a wrong usage of the locking primitives can result in a deadlock of two or more threads.
@@ -457,7 +454,7 @@ Definetely easier to reason about
 
 A way to multiplex several channels. Waits until a communication for one of its cases is ready.
 
-* Let's put it into the real world
+* Let's put this into the real world
 
 * A simple goroutine 
 
@@ -483,6 +480,10 @@ A way to multiplex several channels. Waits until a communication for one of its 
 
 .play selectgoroutine.go /START OMIT/,/END OMIT/
 
+: Risultato omesso per far vedere solo come funziona la select sui canli
+: La select e' pseudorandom se tutti i case sono non bloccanti
+: generator lancia una goroutine e ritorna un canale su cui la goroutine scrive
+
 * Closing a channel generates a message
 
 .image range.png 400 _
@@ -490,6 +491,8 @@ A way to multiplex several channels. Waits until a communication for one of its 
 * Closing a channel generates a message
 
 .play closechannel.go /START OMIT/,/END OMIT/
+
+: Per vedere se un canale si chiude si guarda secondo valore restituito
 
 * Closing a channel generates a message (short version)
 
@@ -515,6 +518,14 @@ A way to multiplex several channels. Waits until a communication for one of its 
 
 .play fanin.go /START OMIT/,/END OMIT/
 
+* Load balancer with workers
+
+.image loadbalancer.png 400 _
+
+* Load balancer with workers
+
+.play loadbalancer.go /START OMIT/,/END OMIT/
+
 * Channels can be passed around
 
 .image channelpassed.png 400 _
@@ -523,13 +534,7 @@ A way to multiplex several channels. Waits until a communication for one of its 
 
 .play channelspassed.go /START OMIT/,/END OMIT/
 
-* Load balance with workers
-
-.image loadbalancer.png 400 _
-
-* Load balance with workers
-
-.play loadbalancer.go /START OMIT/,/END OMIT/
+: pattern simile a async await
 
 * .. and more 
 
@@ -540,12 +545,13 @@ A way to multiplex several channels. Waits until a communication for one of its 
 - Fun to write!
 - A way to transform a sequential program into a concurreny one
 
-* The last gopher trainer advice
+* The last gopher trainer advices
 
 * Handle with care!
 
 - avoid the temptation to summon your gopher army
 - context switch has an hidden cost
+- use mutexes / rw locks have their place
 - use the profilers
 - use the synchronization primitives and the atomic package
 

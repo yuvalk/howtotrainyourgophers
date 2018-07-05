@@ -23,7 +23,7 @@ func main() {
 	for {
 		number, ok := <-pizzaChan
 		if ok {
-			fmt.Println(number)
+			fmt.Println("Pizza ", number)
 		} else {
 			fmt.Println("Oven closed")
 			return

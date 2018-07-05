@@ -5,30 +5,34 @@ import (
 	"time"
 )
 
-func customerGenerator(number int) chan int {
+func customerGenerator() chan int {
+	number := 0
 	res := make(chan int)
 	go func() {
 		for {
+			number++
 			res <- number
 		}
 	}()
 	return res
 }
 
+var pizzaGenerator = customerGenerator
+
 // START OMIT
 func main() {
-	customerOneChan := customerGenerator(0)
-	customerTwoChan := customerGenerator(1)
-	pizzaReadyChan := customerGenerator(2)
+	customerOneChan := customerGenerator()
+	customerTwoChan := customerGenerator()
+	pizzaReadyChan := pizzaGenerator()
 
 	for {
 		select {
 		case <-pizzaReadyChan:
 			fmt.Println("Pizza ready")
-		case <-customerOneChan:
-			fmt.Println("Customer one")
-		case <-customerTwoChan:
-			fmt.Println("Customer two")
+		case n := <-customerOneChan:
+			fmt.Println("Order from customer one", n)
+		case n := <-customerTwoChan:
+			fmt.Println("Order from customer two", n)
 		}
 		time.Sleep(time.Second)
 	}

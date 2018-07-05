@@ -8,12 +8,12 @@ import (
 // START OMIT
 func main() {
 
+	fmt.Println("Customer: ordered pizza")
+
 	go func() {
 		time.Sleep(4 * time.Second)
-		fmt.Println("Pizza ready")
+		fmt.Println("Waiter: Pizza ready")
 	}()
-	fmt.Println("Pizza ordered")
-
 }
 
 // END OMIT
