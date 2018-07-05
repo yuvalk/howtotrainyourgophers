@@ -459,7 +459,7 @@ A way to multiplex several channels. Waits until a communication for one of its 
 - Mutexes
 - RW Locks
 - sync.Once
-- Atomic operations
+- Atomic operations (atomic package)
 
 
 * Let's put this into the real world
