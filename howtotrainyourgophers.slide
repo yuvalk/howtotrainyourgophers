@@ -1,19 +1,17 @@
 How to train your gophers
 
 Federico Paolinelli
-List
+Red Hat
 @fedepaol
 fedepaol@gmail.com
-federico@list-group.com
+fpaoline@redhat.com
 
 * About me
 
-- Lead developer at List
-- Moving from C on daily basis to golang
-- Android in my spare time
+- Red Hatter
+- Telco 5G Core Networking Team
+- All things opensource
 
-: Sistemi distribuiti. Cluster di microservices che parlano fra di loro e con entita' esterne
-: Questo talk e` parte del processo in cui sto imparando Go
 
 * Agenda
 
@@ -29,6 +27,14 @@ federico@list-group.com
 
 : Go e` al picco della salita. Sta diventando main stream ed e' il linguaggio preferito per sistemi.
 : le cose piu` interessanti uscite nell'ultimo periodo sono fatte in go
+
+* Why Go
+
+.image companiesusing.png 400 _
+
+.caption from [[https://go.dev][go.dev]]
+
+: crossing the chasm
 
 * The recipe for Go
 
@@ -148,6 +154,7 @@ There are pointers , which is good: the dev is in control of what is passed by v
 : no boxing
 : using escape analysis, the compiler chooses what to leave on the stack and what on the heap
 : menzionare unsafe package
+: andare sullo heap causa lavoro extra per il garbage collector
 
 * Nice things about GO
 
@@ -171,6 +178,8 @@ Prevents side effects related to distractions
 - Multiple return values (also, named return values)
 
 	func f(arg int) (res int, err error) { /* ... */ }
+
+: opinionated: no exceptions
 
 * Doing more with less
 
@@ -280,6 +289,20 @@ _If_it_walks_like_a_duck_and_quacks_as_a_duck,_it's_a_duck_
 : you can retro assign an interface to any object
 : Interfaces can be used as a placeholder to use different concrete types 
 
+* Favor composition over inheritance
+
+* Only composition is possible!
+
+	type Pod struct {
+	    metav1.TypeMeta
+	    metav1.ObjectMeta
+	    Spec   PodSpec
+	    Status PodStatus
+	}
+
+	p := corev1.Pod{}
+	p.Name = "Foo" // Name is a field of ObjectMeta
+
 * Encapsulation
 
 .image encapsulation.jpeg _ 400
@@ -298,6 +321,9 @@ Every file belongs to a package
 	var Exported int
 	var notExported string
 
+: non ci sono 540 modificatori di visibilita` diversi.
+: Strive to simplicity. 
+
 * Everything else
 
 * Coding style
@@ -312,48 +338,21 @@ Go fmt formats the code in the "go way"
 - easier to write
 - no tabs vs spaces discussions!
 
-* Building
+* Dependency management
 
-Workspace: root tree pointed by $GOPATH variable 
+- The dependency unit is a *module*
+- Roughly mapped to a github repo
+- Served by proxies
 
-	bin/
-	    hello                          # command executable
-	pkg/
-	    linux_amd64/
-		github.com/fedepaol/example/
-		    stringutil.a           # package object
-	src/
-	    github.com/fedepaol/example/
-		hello/
-		    hello.go               # command source
-		    stringutil.go
-	    golang.org/x/image/
-		bmp/
-		    reader.go              # package source
-		    writer.go              # package source
-
-_Most_Go_programmers_keep_all_their_Go_source_code_and_dependencies_in_a_single_workspace_
+	go get github.com/sirupsen/logrus
 
 
-* Building (2)
+Discover modules in [[https://pkg.go.dev]]
 
-*go*build* _package_
-
-- non main packages are compiled and thrown away
-- executables are compiled and left in the current dir
-
-*go*install* _package_
-
-- non main packages are deployed in $GOPATH/pkg
-- executables in $GOPATH/bin
-
-*go*get* _package_ (as in github.com/fedepaol/example/hello)
-
-- downloads the package and its dependencies
-- *installs* it
 
 * Deploying
-There is no need for shared libraries. Not even libc.
+
+There is no need for shared libraries.
 
 The go runtime is linked together with the executable. The absence of external dependencies makes the deployement a lot easier than a C executable.
 
@@ -377,6 +376,8 @@ The go runtime is linked together with the executable. The absence of external d
 
 .image run.png
 	
+: e` questo il vero super potere di go
+
 * Where are my gophers?!
 
 .image beergophers.png 400 _
@@ -394,7 +395,7 @@ Goroutines are lightweight threads managed by the Go runtime.
 *Why*lighter?*
 
 - smaller (altough variable) stack
-- many goroutines can be share a single os thread
+- many goroutines can share a single os thread
 - scheduling not invoked periodically but as a consequence of synchronization
 
 
@@ -579,11 +580,12 @@ Interesting read :
 - Interactive Tutorial
 .link http://tour.golang.org
 
+- Go dev
+.link https://go.dev
+
 - Effective go
 .link https://golang.org/doc/effective_go.html
 
 - Mailing list
 .link https://groups.google.com/forum/#!forum/golang-nuts
-
-* We are hiring
 
