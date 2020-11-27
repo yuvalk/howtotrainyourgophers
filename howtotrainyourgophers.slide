@@ -564,10 +564,6 @@ A way to multiplex several channels. Waits until a communication for one of its 
 - use the profilers
 - use the synchronization primitives and the atomic package
 
-Interesting read :
-
-.link https://medium.com/@val_deleplace/go-code-refactoring-the-23x-performance-hunt-156746b522f7
-
 : non sono la soluzione a tutti i mali
 : le mappe si proteggono molto meglio con un rw lock che non passando da una goroutine
 
