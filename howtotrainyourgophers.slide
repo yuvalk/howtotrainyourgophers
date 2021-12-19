@@ -26,8 +26,8 @@ yuval@redhat.com
 
 .caption from [[https://blog.golang.org/go-brand][The go branding strategy]]
 
-: Go e` al picco della salita. Sta diventando main stream ed e' il linguaggio preferito per sistemi.
-: le cose piu` interessanti uscite nell'ultimo periodo sono fatte in go
+: Go is at the peak of the climb. It is becoming the main stream and is the preferred language for systems.
+: the most interesting things released in the last period are done in go
 
 * Why Go
 
@@ -106,7 +106,7 @@ Go provides a higher level _string_ type:
 - Dynamically sized
 - Automatically resized by append
 
-: append crea (o puo` creare) una nuova slice
+: append creates a new slice
 
 * Maps 
 
