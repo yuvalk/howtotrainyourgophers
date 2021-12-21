@@ -9,7 +9,8 @@ void *myThreadFun(void *vargp)
 {
     return NULL;
 }
-  
+
+//START OMIT
 #define THREADS 50000
 int main()
 {
@@ -25,3 +26,4 @@ int main()
     printf("After Threads\n");
     exit(0);
 }
+//END OMIT

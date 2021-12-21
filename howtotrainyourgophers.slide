@@ -20,7 +20,7 @@ yuval@redhat.com
 
 - Why Go
 - Intro to the language
-- Brief history of multi-threading
+- Brief history of multithreading
 - Go Routines
 - Gophers
 
@@ -382,6 +382,37 @@ The go runtime is linked together with the executable. The absence of external d
 .image run.png
 	
 : e` questo il vero super potere di go
+
+* Brief history of multithreading
+
+.image multithreading.jpeg 350 _
+.caption image from playembbeded.com
+
+* multi processing
+
+.code multiprocess.c /START OMIT/,/END OMIT/
+$ time ./mproc 
+
+real	0m1.433s
+
+: written in C, because there is no (easy) go equivalency 
+
+* multi threading
+
+.code multithread.c /START OMIT/,/END OMIT/
+$time ./mthread
+
+real 0m0.582s
+
+: threads are faster, less context switch overhead
+
+* goroutines
+
+.play goroutines.go /START OMIT/,/END OMIT/
+$ time go run goroutine.go 
+Customer: ordered pizza
+
+real	0m0.216s
 
 * Where are my gophers?!
 
